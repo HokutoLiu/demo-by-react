@@ -7,8 +7,8 @@
 'use strict';
 
 const path = require('path');
-const srcPath = path.join(__dirname, '/../src');
-const dfltPort = 8000;
+const srcPath = path.join(__dirname, '/../src'); // 项目源文件目录地址
+const dfltPort = 8000; // 端口
 
 /**
  * Get the default modules object for webpack
@@ -16,22 +16,26 @@ const dfltPort = 8000;
  */
 function getDefaultModules() {
   return {
-    preLoaders: [
+    preLoaders: [ // loaders前置执行
       {
-        test: /\.(js|jsx)$/,
-        include: srcPath,
-        loader: 'eslint-loader'
+        test: /\.(js|jsx)$/, //正则，匹配到的文件后缀名
+        include: srcPath, //string|array包含的文件夹
+        loader: 'eslint-loader' //string|array处理匹配到的文件  从右往左
       }
     ],
-    loaders: [
+    loaders: [ // 
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:"last 2 version"}'
       },
-      {
+      /*{
         test: /\.sass/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
-      },
+      },*/
+     /* {
+        test: /\.scss/,
+        loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:"last 2 version"}!sass-loader?outputStyle=expanded'
+      },*/
       {
         test: /\.scss/,
         loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
@@ -45,7 +49,11 @@ function getDefaultModules() {
         loader: 'style-loader!css-loader!stylus-loader'
       },
       {
-        test: /\.(png|jpg|gif|woff|woff2)$/,
+        test: /\.json$/, // 处理json文件
+        loader: 'json-loader'
+      },
+      {
+        test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg)$/,
         loader: 'url-loader?limit=8192'
       },
       {
@@ -59,6 +67,6 @@ function getDefaultModules() {
 module.exports = {
   srcPath: srcPath,
   publicPath: '/assets/',
-  port: dfltPort,
-  getDefaultModules: getDefaultModules
+  port: dfltPort, // 端口
+  getDefaultModules: getDefaultModules // modules
 };

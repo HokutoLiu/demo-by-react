@@ -11,15 +11,15 @@ let additionalPaths = [];
 
 module.exports = {
   additionalPaths: additionalPaths,
-  port: defaultSettings.port,
-  debug: true,
-  devtool: 'eval',
-  output: {
-    path: path.join(__dirname, '/../dist/assets'),
-    filename: 'app.js',
+  port: defaultSettings.port, // 端口
+  debug: true, 
+  devtool: 'eval', // 浏览器调试工具 Dev tool 用到 
+  output: { //配置打包结果
+    path: path.join(__dirname, '/../dist/assets'), //定义输出文件路径
+    filename: 'app.js', //指定打包文 件名称
     publicPath: defaultSettings.publicPath
   },
-  devServer: {
+  devServer: { //热加载webpack-dev-server
     contentBase: './src/',
     historyApiFallback: true,
     hot: true,
@@ -27,7 +27,7 @@ module.exports = {
     publicPath: defaultSettings.publicPath,
     noInfo: false
   },
-  resolve: {
+  resolve: { // require()调用时自动补全后缀
     extensions: ['', '.js', '.jsx'],
     alias: {
       actions: `${defaultSettings.srcPath}/actions/`,
